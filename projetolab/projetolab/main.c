@@ -73,7 +73,7 @@ int main()
 	EICRA |= (1<<ISC01) | (0<<ISC00);
 	EIMSK = (1<<INT0); //habilita a interrupção externa 0
 	//Configuração do ADC
-	ADMUX = 0b01000000; //Tensão interna de ref (1.1V), canal 0
+	ADMUX = 0b01000000; //Tensão interna AVCC
 	ADCSRA = 0b11101111; //Habilita o AD, habilita interrupção, modo de conversão contínua, prescaler = 128
 	ADCSRB = 0x00; //Modo de conversão contínua
 	set_bit(DIDR0,0); //desabilita pino PC0 como I/0, entrada do ADC0

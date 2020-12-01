@@ -405,14 +405,14 @@ ISR (INT0_vect){  // ON ou OFF
 	off=!off;
  32a:	81 e0       	ldi	r24, 0x01	; 1
  32c:	90 e0       	ldi	r25, 0x00	; 0
- 32e:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__data_start>
- 332:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__data_start+0x1>
+ 32e:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 332:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
  336:	23 2b       	or	r18, r19
  338:	11 f0       	breq	.+4      	; 0x33e <__vector_1+0x42>
  33a:	80 e0       	ldi	r24, 0x00	; 0
  33c:	90 e0       	ldi	r25, 0x00	; 0
- 33e:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__data_start+0x1>
- 342:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 33e:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 342:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__DATA_REGION_ORIGIN__>
 	
 }
  346:	9f 91       	pop	r25
@@ -579,7 +579,7 @@ int main()
 	EIMSK = (1<<INT0); //habilita a interrupção externa 0
  41c:	9d bb       	out	0x1d, r25	; 29
 	//Configuração do ADC
-	ADMUX = 0b01000000; //Tensão interna de ref (1.1V), canal 0
+	ADMUX = 0b01000000; //Tensão interna AVCC
  41e:	80 e4       	ldi	r24, 0x40	; 64
  420:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7f807c>
 	ADCSRA = 0b11101111; //Habilita o AD, habilita interrupção, modo de conversão contínua, prescaler = 128
@@ -666,8 +666,8 @@ int main()
 		}
 		
 	   if(off==1){
- 4c0:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
- 4c4:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__data_start+0x1>
+ 4c0:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 4c4:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
  4c8:	01 97       	sbiw	r24, 0x01	; 1
  4ca:	09 f0       	breq	.+2      	; 0x4ce <__EEPROM_REGION_LENGTH__+0xce>
  4cc:	bf cf       	rjmp	.-130    	; 0x44c <__EEPROM_REGION_LENGTH__+0x4c>
