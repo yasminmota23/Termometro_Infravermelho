@@ -53,8 +53,7 @@ int main()
 
 	ICR1 = 0xFFFF;
 	// seta TOP para 16bit
-
-	OCR1A = 49152;
+	
 	// seta PWM com 75% duty cycle ->  49152/65536 =75%
 
 
@@ -88,7 +87,6 @@ int main()
 	
 	while(1){
 		if(on==1){
-			
 			ACSR = 1<<ACIE; //habilita interrupção por mudança de estado na saída do comparador
 			lcd_cmd(0x80);
 			lcd_msg("Temperatura:");
@@ -97,12 +95,16 @@ int main()
 			lcd_msg(temp_string);
 			lcd_cmd(0xC7); 
 			lcd_msg(" Graus");
-			if(temp<36 || temp>38)
+			if(temp<36 || temp>38){
 				OCR1A=16384; // duty=25%
+			}else
+				OCR1A = 49152; // gera pwm com duty=75%, 49152/65536;
 		}
 		
 	   if(off==1){
-		     ACSR = 0<<ACIE; //desabilita interrupção por mudança de estado na saída do comparador
+		   
+		    OCR1A = 0; // desativa o pwm
+		    ACSR = 0<<ACIE; //desabilita interrupção por mudança de estado na saída do comparador
 		    clr_bit(PORTB,LED); // desliga o LED
 			lcd_cmd(0x01); // limpa display
 	   }
