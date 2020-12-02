@@ -93,7 +93,7 @@ int main()
 			lcd_cmd(0xC7); 
 			lcd_msg(" Graus");
 			if(temp<36 || temp>38){
-				OCR1A = 49152; // gera pwm com duty=50%, 32768/65536;
+				OCR1A = 49152; // gera pwm com duty=50%, 49152/65536=50%;
 			}else
 				OCR1A=0; // PWM
 		}
