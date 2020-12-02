@@ -53,10 +53,6 @@ int main()
 
 	ICR1 = 0xFFFF;
 	// seta TOP para 16bit
-	
-	// seta PWM com 75% duty cycle ->  49152/65536 =75%
-
-
 	TCCR1A |= (1 << COM1A1)|(1 << COM1B1);
 	// seta modo não invertido
 
@@ -97,9 +93,9 @@ int main()
 			lcd_cmd(0xC7); 
 			lcd_msg(" Graus");
 			if(temp<36 || temp>38){
-				OCR1A = 49152; // gera pwm com duty=75%, 49152/65536;
+				OCR1A = 49152; // gera pwm com duty=50%, 32768/65536;
 			}else
-				OCR1A=16384; // duty=25%
+				OCR1A=0; // PWM
 		}
 		
 	   if(off==1){
